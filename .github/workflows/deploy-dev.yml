@@ -1,0 +1,20 @@
+name: Deploy Dev Environment
+
+on:
+  push:
+    paths:
+      - "envs/dev/**"
+  workflow_dispatch:
+  
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+  
+jobs:
+  deploy-dev:
+    uses: ./.github/workflows/terraform-reusable.yml
+    with:
+      environment: dev
+      aws_region: ap-south-1
+      terraform_directory: envs/dev
+      dry_run: true
