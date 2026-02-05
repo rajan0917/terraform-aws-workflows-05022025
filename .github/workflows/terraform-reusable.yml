@@ -1,0 +1,58 @@
+name: Reusable Terraform Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      aws_region:
+        required: true
+        type: string
+      terraform_directory:
+        required: true
+        type: string
+      dry_run:
+        required: true
+        type: boolean
+
+jobs:
+   terraform:
+    name: Terraform ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::167744073260:role/oidc-test
+          aws-region: ${{ inputs.aws_region }}
+      - name: Verify identity
+        run: aws sts get-caller-identity
+
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+
+      - name: Terraform Init
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform init -input=false
+
+      - name: Terraform Validate
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform validate
+
+      - name: Terraform Plan (Dry Run)
+        if: ${{ inputs.dry_run }}
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform plan -input=false -no-color
+
+      - name: Terraform Apply
+        if: ${{ !inputs.dry_run }}
+        working-directory: ${{ inputs.terraform_directory }}
+        run: terraform apply -auto-approve -input=false
