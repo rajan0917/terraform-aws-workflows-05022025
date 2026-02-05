@@ -326,3 +326,4 @@ variable "authorization" {
   default = "NONE"
 }
 
+variable "kms_key_alias" {}
