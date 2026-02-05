@@ -2,7 +2,7 @@
 # VPC
 ############################
 module "vpc" {
-  source = "../../modules/vpc"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/vpc"
 
 #  vpc_name        = var.vpc_name
   name        = var.vpc_name
@@ -18,7 +18,7 @@ module "vpc" {
 # IAM
 ############################
 module "iam" {
-  source = "../../modules/iam"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/iam"
 
   name = var.cluster_name
   tags         = var.tags
@@ -28,7 +28,7 @@ module "iam" {
 # EKS
 ############################
 module "eks" {
-  source = "../../modules/eks"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/eks"
 
   cluster_name      = var.cluster_name
 #  cluster_version   = var.cluster_version
@@ -46,7 +46,7 @@ module "eks" {
 # Security Group
 ############################
 module "security_group" {
-  source = "../../modules/security_group"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/security_group"
 
   name        = var.name
   description = var.description
@@ -60,7 +60,7 @@ module "security_group" {
 # ALB
 ############################
 module "alb" {
-  source = "../../modules/alb"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/alb"
 
   name              = var.name
   vpc_id            = module.vpc.vpc_id
@@ -84,7 +84,7 @@ module "alb" {
 # NLB
 ############################
 module "nlb" {
-  source = "../../modules/nlb"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/nlb"
 
   name            = var.name
   vpc_id          = module.vpc.vpc_id
@@ -99,7 +99,7 @@ module "nlb" {
 # WAF
 ############################
 module "waf" {
-  source = "../../modules/waf"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/waf"
 
   name               = var.name
   scope              = var.scope
@@ -113,7 +113,7 @@ module "waf" {
 # API Gateway
 ############################
 module "apigateway" {
-  source = "../../modules/apigateway"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/apigateway"
 
   name           = var.name
   authorization  = var.authorization
@@ -124,7 +124,7 @@ module "apigateway" {
 # KMS
 ############################
 module "kms" {
-  source = "../../modules/kms_policies"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/kms_policies"
   alias_name = var.kms_key_alias
   kms_key_alias = var.kms_key_alias
 #  name = var.name
@@ -134,7 +134,7 @@ module "kms" {
 # S3
 ############################
 module "s3" {
-  source = "../../modules/s3"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/s3"
 
   bucket_name            = var.bucket_name
   acl                    = var.acl
@@ -154,7 +154,7 @@ module "s3" {
 # RDS
 ############################
 module "rds" {
-  source = "../../modules/rds"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/rds"
 
   identifier           = var.identifier
   engine               = var.engine
@@ -177,7 +177,7 @@ module "rds" {
 # Notifications (SNS)
 ############################
 module "notifications" {
-  source = "../../modules/notifications"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/notifications"
 
   name         = var.name
   email        = var.email
@@ -189,7 +189,7 @@ module "notifications" {
 # Route53
 ############################
 module "route53" {
-  source = "../../modules/route53"
+  source = "git::https://github.com/rajan0917/terraform-aws-modules-05022025.git//modules/route53"
 
   zone_id = var.zone_id
   domain  = var.domain
