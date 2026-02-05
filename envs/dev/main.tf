@@ -3,8 +3,8 @@
 #}
 
 module "vpc" {
-  source = "../../modules/vpc"
-
+#  source = "../../modules/vpc"
+  source = "git@github.com:rajan0917/terraform-aws-modules-05022025.git/modules/vpc"
   name            = var.vpc_name
   vpc_cidr        = var.vpc_cidr
   public_subnets  = var.public_subnets
@@ -13,7 +13,7 @@ module "vpc" {
 }
 
 module "eks" {
-  source = "../../modules/eks"
+  source = "git@github.com:rajan0917/terraform-aws-modules-05022025.git/modules/eks"
 
   vpc_id             = module.vpc.vpc_id
   cluster_name       = var.cluster_name
@@ -26,7 +26,7 @@ module "eks" {
 }
 
 module "route53" {
-  source = "../../modules/route53"
+  source = "git@github.com:rajan0917/terraform-aws-modules-05022025.git/modules/route53"
 
   zone_id      = var.zone_id
   domain       = var.domain
