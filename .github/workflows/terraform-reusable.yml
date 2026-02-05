@@ -52,7 +52,7 @@ jobs:
         working-directory: ${{ inputs.terraform_directory }}
         run: terraform plan -input=false -no-color
 
-      - name: Terraform Apply
-        if: ${{ !inputs.dry_run }}
-        working-directory: ${{ inputs.terraform_directory }}
-        run: terraform apply -auto-approve -input=false
+#      - name: Terraform Apply
+#        if: ${{ !inputs.dry_run }}
+#        working-directory: ${{ inputs.terraform_directory }}
+#        run: terraform apply -auto-approve -input=false
